@@ -59,7 +59,7 @@ public class Borsa {
 	}
 	
 	public boolean hasAttrezzo(String nomeAttrezzo) {
-		return this.getAttrezzo(nomeAttrezzo)!=null;
+		return this.getAttrezzo(nomeAttrezzo) != null;
 		}
 
 	public boolean removeAttrezzo(String nomeAttrezzo) {
