@@ -10,7 +10,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 /**
  * Classe di test per la classe Stanza
  * 
- *
+ *@author sara
  */
 public class StanzaTest {
 

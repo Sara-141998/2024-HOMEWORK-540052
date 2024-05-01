@@ -187,3 +187,4 @@ public class PartitaTest {
         assertNotEquals(giocatore1, partita.getGiocatore());
     }
 }
+
