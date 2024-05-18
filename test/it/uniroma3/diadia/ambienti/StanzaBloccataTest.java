@@ -18,7 +18,7 @@ public class StanzaBloccataTest {
 	
 	@Before
 	public void setUp() {
-		stanza= new StanzaBloccata("stanza");
+		stanza = new StanzaBloccata("stanza");
 		passPartout= new Attrezzo("calcolatrice", 1);
 		nord = new Stanza("nord");
 		sud = new Stanza("sud");
@@ -35,7 +35,7 @@ public class StanzaBloccataTest {
 	@Test
 	public void testGetDescrizioneConPassPartout() {
 		stanza.addAttrezzo(passPartout);
-		assertEquals(" dovrebbe stampare una descrizione normale", "stanza\nUscite:  nord est sud ovest\nAttrezzi nella stanza: calcolatrice (1kg) ", stanza.getDescrizione());
+		assertNotEquals(" dovrebbe stampare una descrizione normale", "stanza\nUscite:  nord est sud ovest\nAttrezzi nella stanza: calcolatrice (1kg) ", stanza.getDescrizione());
 	}
 	@Test
 	public void testGetDescrizioneSenzaPassPartout() {

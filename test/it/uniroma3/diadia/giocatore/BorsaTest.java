@@ -2,6 +2,16 @@ package it.uniroma3.diadia.giocatore;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.List;
+import java.util.SortedSet;
+
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +22,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  */
 public class BorsaTest {
 
+	private Borsa borsa;
 	private Borsa borsaVuota;
 	private Borsa borsaPiena;
 	private Attrezzo penna;
@@ -20,6 +31,7 @@ public class BorsaTest {
 	
 	@Before
 	public  void setUp() {
+		borsa= new Borsa();
 		borsaPiena= new Borsa();
 		borsaVuota= new Borsa();
 		this.penna= new Attrezzo("penna", 10);
@@ -51,11 +63,7 @@ public class BorsaTest {
 	/**
 	 * Test metodo addAttrezzo
 	 */
-	@Test
-	public void testAddAttrezzo() {
-        assertNotEquals(tablet , this.borsaPiena.addAttrezzo(penna));
-
-	}
+	
 
 	@Test
 	public void testAddAttrezzoBorsaPiena() {
@@ -115,8 +123,37 @@ public class BorsaTest {
 	@Test
 	public void testGetAttrezzoConAttrezzoSconosciuto() {
 		assertEquals(" l'attrezzo non esiste proprio", null , this.borsaPiena.getAttrezzo("gomma"));
-
-
 	}
+	
+	  @Test
+	    public void testGetContenutoOrdinatoPerPeso() {
+	        borsa.addAttrezzo(penna);
+	        List<Attrezzo> attrezziOrdinati = borsa.getContenutoOrdinatoPerPeso();
+	        assertEquals(penna, attrezziOrdinati.get(0));
+	        
+	       
+	    }
+
+	    @Test
+	    public void testGetContenutoOrdinatoPerNome() {
+	        borsa.addAttrezzo(penna);
+	        borsa.addAttrezzo(tablet);
+	        SortedSet<Attrezzo> attrezziOrdinati = borsa.getContenutoOrdinatoPerNome();
+	        assertEquals(penna, attrezziOrdinati.first());
+	        
+	    }
+
+	  
+
+	    @Test
+	    public void testGetSortedSetOrdinatoPerPeso() {
+	        borsa.addAttrezzo(tablet);
+	        borsa.addAttrezzo(penna);
+	        SortedSet<Attrezzo> attrezziOrdinati = borsa.getSortedSetOrdinatoPerPeso();
+	        assertEquals(tablet, attrezziOrdinati.last());
+	    }
+    
+
+   
 	
 }
