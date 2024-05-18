@@ -24,12 +24,18 @@ public class Partita {
 	public Partita(){
 		labirinto= new Labirinto();
 		this.finita = false;
-		stanzaCorrente= labirinto.getStanzaCorrente();
+		this.stanzaCorrente= labirinto.getStanzaCorrente();
 		setStanzaVincente(labirinto.getStanzaVincente());
-		giocatore= new Giocatore();
+		this.giocatore= new Giocatore();
 	}
 
-    
+	public Partita(Labirinto lab) {
+		this.labirinto = lab;
+		this.stanzaCorrente = lab.getStanzaCorrente();
+		this.finita = false;
+		this.giocatore = new Giocatore();
+	}
+
 	
 	/**
 	 * Restituisce vero se e solo se la partita e' stata vinta

@@ -1,6 +1,9 @@
 package it.uniroma3.diadia;
 
-import java.util.Scanner;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+
+/*import java.util.Scanner;*/
 
 import it.uniroma3.diadia.comandi.Comando;
 import it.uniroma3.diadia.comandi.FabbricaDiComandi;
@@ -21,7 +24,7 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
 
 public class DiaDia{
 
-	static final private String MESSAGGIO_BENVENUTO = ""+
+	static final public String MESSAGGIO_BENVENUTO = ""+
 			"Ti trovi nell'Universita', ma oggi e' diversa dal solito...\n" +
 			"Meglio andare al piu' presto in biblioteca a studiare. Ma dov'e'?\n"+
 			"I locali sono popolati da strani personaggi, " +
@@ -31,6 +34,11 @@ public class DiaDia{
 			"o regalarli se pensi che possano ingraziarti qualcuno.\n\n"+
 			"Per conoscere le istruzioni usa il comando 'aiuto'.";
 
+
+
+	public static final String OUTPUT_VITTORIA = "Hai vinto!";
+	public static final String OUTPUT_ESAURIMENTO_CFU = "Hai esaurito i CFU...";
+
 	
 
 	private Partita partita;
@@ -39,6 +47,13 @@ public class DiaDia{
 	public DiaDia(IO io2) {
 		this.partita = new Partita();
 		this.io=io2;
+	}
+	
+	public DiaDia(Labirinto lab, IO io) {
+		this.partita= new Partita(lab);
+		this.io=io;
+		
+		
 	}
 
 	public void gioca() {
@@ -67,11 +82,14 @@ public class DiaDia{
 		comandoDaEseguire.esegui(this.partita);
 		
 		if (this.partita.vinta()) {
-			io.mostraMessaggio("Hai vinto!");
-			
-	}   
+			io.mostraMessaggio(OUTPUT_VITTORIA);
+		if ((this.partita.getGiocatore().getCfu() == 0))
+			io.mostraMessaggio(OUTPUT_ESAURIMENTO_CFU);
+			return this.partita.isFinita();
+		}
 		return false;
-}		
+	}
+		
 	public Partita getPartita() {
 		return this.partita;
 	}
@@ -79,7 +97,12 @@ public class DiaDia{
 
 	public static void main(String[] argc) {
 		IOConsole io = new IOConsole();
-		DiaDia gioco = new DiaDia(io);
+		Labirinto labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("LabCampusOne")
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("LabCampusOne","Biblioteca","ovest")
+				.getLabirinto();
+		DiaDia gioco = new DiaDia(labirinto,io);
 		gioco.gioca();
-	}
+}
 }

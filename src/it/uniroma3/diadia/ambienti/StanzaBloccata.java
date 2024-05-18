@@ -7,41 +7,57 @@ public class StanzaBloccata extends Stanza {
 
 	public StanzaBloccata(String nome) {
 		super(nome);
-		nonSiPassa=null;      //direzione bloccata
-		passPartout=null;   //consente di sbloccare la strada
+		this.nonSiPassa = null;      //direzione bloccata
+		this.passPartout = null;   //consente di sbloccare la strada
 	}
 	
-	public void setPass(String passPartout) {
+	
+	
+
+
+	public StanzaBloccata setPass(String passPartout) {
 		this.passPartout=passPartout;
-		
+		return this;
+	}
+	
+	public Object getPassPartout() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	public void setBlocco(String blocco) {
+
+	public StanzaBloccata setBlocco(String blocco) {
 		this.nonSiPassa=blocco;
+		return this;
 	}
 
 	@Override
 	public Stanza getStanzaAdiacente(String direzione) {
-		Stanza stanza = null;
-		if(direzione != null) {
-			for(int i=0; i<this.numeroStanzeAdiacenti; i++) {
-				if (this.direzioni[i].equals(direzione) && this.direzioni[i].equals(nonSiPassa)) {
-					if(this.hasAttrezzo(passPartout))
-						stanza = this.stanzeAdiacenti[i];
-					else
-						stanza= this;
-				}
-				if (this.direzioni[i].equals(direzione) && !this.direzioni[i].equals(nonSiPassa))
-					stanza = this.stanzeAdiacenti[i];}
+		if(this.nonSiPassa.equals(direzione)&& !this.hasAttrezzo(passPartout)) {
+			return this;
 		}
-		return stanza;
-	}
+		else return super.getStanzaAdiacente(direzione);	
+	} 
+	
 	@Override
 	public String getDescrizione() {
-		for(int i=0;i<this.direzioni.length; i++)
-			if(this.direzioni[i].contentEquals(nonSiPassa) && (!this.hasAttrezzo(passPartout))) {
-				this.direzioni[i]="Stanza Bloccata";
-				return "Stanza Bloccata, bisogna forzarla";}
+		
+		if(this.getAttrezzi().get(passPartout)==null && this.getAdiacenze().containsKey(nonSiPassa))
+			return "Stanza Bloccata, bisogna forzarla";
+		else
 			return this.toString();
+
+
 	}
+
+
+	public String getDirezioneBloccata() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
 }

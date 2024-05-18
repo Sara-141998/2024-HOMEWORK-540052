@@ -36,5 +36,9 @@ public class Giocatore {
 	public Borsa getBorsa() {
 		return zaino;
 	}
+	public void setBorsa(Borsa borsa) {
+		borsa=zaino;
+		
+	}
 
 }

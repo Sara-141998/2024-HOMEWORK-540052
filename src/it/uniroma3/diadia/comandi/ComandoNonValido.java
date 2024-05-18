@@ -5,13 +5,14 @@ import it.uniroma3.diadia.Partita;
 
 public class ComandoNonValido implements Comando {
 	
+	public static final String OUTPUT_NON_VALIDO = "Comando non valido";
 	private IO io;
 	
 	
 
 	@Override
 	public void esegui(Partita partita) {
-		if(io!=null)io.mostraMessaggio("Comando non valido");
+		if(io!=null)io.mostraMessaggio(OUTPUT_NON_VALIDO);
 		
 	}
 

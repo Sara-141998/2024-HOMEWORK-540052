@@ -2,9 +2,18 @@ package it.uniroma3.diadia.comandi;
 
 import java.util.Scanner;
 
+
 public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi{
 	
+	public static final String GUARDA = "guarda";
+	public static final String FINE = "fine";
+	public static final String AIUTO = "aiuto";
+	public static final String POSA = "posa";
+	public static final String PRENDI = "prendi";
+	public static final String VAI = "vai";
+    
 	public FabbricaDiComandiFisarmonica() {
+		
 	}
 	
 @Override
@@ -42,6 +51,7 @@ public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi{
 		else comando = new ComandoNonValido();
 		comando.setParametro(parametro);
 		scannerDiParole.close();
-		return comando;}
+		return comando;
+		}
 
 }
