@@ -4,6 +4,16 @@ import java.util.Scanner;
 
 public class IOConsole implements IO{
 	
+private Scanner scannerDiLinee;
+	
+	public IOConsole() {
+		this.scannerDiLinee = new Scanner(System.in);
+	}
+	
+	public IOConsole(Scanner scannerDiLinee) {
+		this.scannerDiLinee = scannerDiLinee;
+	}
+	
 	/**
 	 * Stampa il messaggio su schermo per l'utente.
 	 * @param msg
@@ -19,9 +29,7 @@ public class IOConsole implements IO{
 	 */
 	public String leggiRiga() {
 		
-		Scanner scannerDiLinee = new Scanner(System.in);
 		String riga = scannerDiLinee.nextLine();
-		//scannerDiLinee.close();
 		return riga;
 	}
 }

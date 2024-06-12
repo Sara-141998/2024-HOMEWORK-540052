@@ -2,56 +2,41 @@ package it.uniroma3.diadia.comandi;
 
 import java.util.Scanner;
 
+import it.uniroma3.diadia.IO;
 
-public class FabbricaDiComandiFisarmonica implements FabbricaDiComandi{
+public class FabbricaDiComandiFisarmonica  implements FabbricaDiComandi{
 	
-	public static final String GUARDA = "guarda";
-	public static final String FINE = "fine";
-	public static final String AIUTO = "aiuto";
-	public static final String POSA = "posa";
-	public static final String PRENDI = "prendi";
-	public static final String VAI = "vai";
-    
-	public FabbricaDiComandiFisarmonica() {
-		
-	}
-	
-@Override
-	
-	public Comando costruisciComando (String istruzione) {
+	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa", "guarda"};
 
-		Scanner scannerDiParole = new Scanner(istruzione);
-		String nomeComando = null;
-		String parametro = null;
-		Comando comando = null;
-		if (scannerDiParole.hasNext())
-			nomeComando = scannerDiParole.next(); // prima parola: nome del comando
-		if (scannerDiParole.hasNext())
-			parametro = scannerDiParole.next();   // seconda parola: eventuale parametro
-		if (nomeComando == null)
-			comando = new ComandoNonValido();
-		else if (nomeComando.equals("vai"))
-			comando = new ComandoVai();
-		
-		else if (nomeComando.equals("prendi"))
-			comando = new ComandoPrendi();
-		
-		else if (nomeComando.equals("posa"))
-			comando = new ComandoPosa();
-		
-		else if (nomeComando.equals("aiuto"))
-			comando = new ComandoAiuto();
-		
-		else if (nomeComando.equals("fine"))
-			comando = new ComandoFine();
-		
-		else if (nomeComando.equals("guarda"))
-			comando = new ComandoGuarda();
-		
-		else comando = new ComandoNonValido();
-		comando.setParametro(parametro);
-		scannerDiParole.close();
-		return comando;
+	@Override
+	public AbstractComando costruisciComando(String istruzione, IO io) {
+		try (Scanner scannerDiParole = new Scanner(istruzione)){
+			String nomeComando = null;
+			String parametro = null;
+			AbstractComando comando = null;
+			if (scannerDiParole.hasNext())
+				nomeComando = scannerDiParole.next(); // prima parola: nome del comando
+			if (scannerDiParole.hasNext())
+				parametro = scannerDiParole.next(); // seconda parola: eventuale parametro
+			if (nomeComando == null)
+				comando = new ComandoNonValido();
+			else if (nomeComando.equals("vai"))
+				comando = new ComandoVai();
+			else if (nomeComando.equals("prendi"))
+				comando = new ComandoPrendi();
+			else if (nomeComando.equals("posa"))
+				comando = new ComandoPosa();
+			else if (nomeComando.equals("aiuto"))
+				comando = new ComandoAiuto(elencoComandi);
+			else if (nomeComando.equals("fine"))
+				comando = new ComandoFine();
+			else if (nomeComando.equals("guarda"))
+				comando = new ComandoGuarda();
+			else
+				comando = new ComandoNonValido();
+			comando.setParametro(parametro);
+			comando.setIO(io);
+			return comando;
 		}
-
+	}
 }

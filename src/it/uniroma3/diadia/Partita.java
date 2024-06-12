@@ -15,33 +15,36 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 public class Partita {
 
 	private Stanza stanzaCorrente;
-	private Stanza stanzaVincente;
 	private boolean finita;
 	private Labirinto labirinto;
 	private Giocatore giocatore;
-	private int cfu;
 	
-	public Partita(){
-		labirinto= new Labirinto();
+	
+	public Partita(Labirinto labirinto){
+		this.labirinto = labirinto;
 		this.finita = false;
-		this.stanzaCorrente= labirinto.getStanzaCorrente();
-		setStanzaVincente(labirinto.getStanzaVincente());
+		this.stanzaCorrente= this.labirinto.getStanzaIniziale();
 		this.giocatore= new Giocatore();
 	}
 
-	public Partita(Labirinto lab) {
-		this.labirinto = lab;
-		this.stanzaCorrente = lab.getStanzaCorrente();
-		this.finita = false;
-		this.giocatore = new Giocatore();
+	
+	
+	public Stanza getStanzaVincente() {
+		return this.labirinto.getStanzaVincente();
 	}
 
+	public void setStanzaCorrente(Stanza stanzaCorrente) {
+		this.stanzaCorrente = stanzaCorrente;
+	}
+
+	public Stanza getStanzaCorrente() {
+		return this.stanzaCorrente;
+	}
 	
 	/**
 	 * Restituisce vero se e solo se la partita e' stata vinta
-	 *  @return vero se partita vinta
+	 * @return vero se partita vinta
 	 */
-	
 	public boolean vinta() {
 		return this.getStanzaCorrente()== this.getStanzaVincente();
 	}
@@ -62,60 +65,23 @@ public class Partita {
 		this.finita = true;
 	}
 
-	/**
-	 * 
-	 * @return restituisce la stanza corrente
-	 */
-	public Stanza getStanzaCorrente() {
-		return stanzaCorrente ;
+	public int getCfu() {
+		return this.giocatore.getCfu();
 	}
 
-	/**
-	 * 
-	 * @return il giocatore
-	 */
-	public Giocatore getGiocatore(){
-		return giocatore;
-	}
+	public void setCfu(int cfu) {
+		this.giocatore.setCfu(cfu);		
+	}	
 	
-	public void setGiocatore(Giocatore giocatore) {
-		this.giocatore = giocatore;
+	public Giocatore getGiocatore() {
+		return this.giocatore;
 	}
-	
-	/**
-	 * aggiorna la stanza corrente con la prossima stanza 
-	 *
-	 */
-	public void setStanzaCorrente(Stanza prossimaStanza) {
-		this.stanzaCorrente=prossimaStanza;
-		
-	}
-	
-	public Labirinto getLabirinto() {
-		return labirinto;
+
+	public boolean giocatoreIsVivo() {
+		return this.giocatore.getCfu() > 0;
 	}
 
 	public void setLabirinto(Labirinto labirinto) {
 		this.labirinto = labirinto;
 	}
-
-	/**
-     * restituisce i cfu
-     * @return cfu
-     */
-    public int getCfu() {
-		return cfu;
-	}
-
-	public void setCfu(int cfu) {
-		this.cfu = cfu;
-	}
-
-	public Stanza getStanzaVincente() {
-		return stanzaVincente;
-	}
-
-	public void setStanzaVincente(Stanza stanzaVincente) {
-		this.stanzaVincente = stanzaVincente;
-	}	
 }

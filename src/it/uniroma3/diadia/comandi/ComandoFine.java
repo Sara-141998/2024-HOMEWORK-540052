@@ -3,7 +3,7 @@ package it.uniroma3.diadia.comandi;
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 
-public class ComandoFine implements Comando {
+public class ComandoFine extends AbstractComando {
 	public static final String OUTPUT_FINALE = "Grazie di aver giocato!";
 	private IO io;
 
@@ -34,11 +34,5 @@ public class ComandoFine implements Comando {
 		return this.io;
 	}
 
-	@Override
-	public void setIo(IO io) {
-		this.io=io;
-		
-	}
-	
 
 }

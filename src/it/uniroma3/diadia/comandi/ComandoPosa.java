@@ -4,7 +4,7 @@ import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoPosa implements Comando{
+public class ComandoPosa extends AbstractComando{
 	
 	public static final String OUTPUT_POSA_SENZA_SUCCESSO ="Oggetto non presente";
 	public static final String OUTPUT_STANZA_PIENA = "Spiacente stanza piena";
@@ -49,10 +49,5 @@ public class ComandoPosa implements Comando{
 		return this.io;
 	}
 
-	@Override
-	public void setIo(IO io) {
-		this.io=io;
-		
-	}
 
 }

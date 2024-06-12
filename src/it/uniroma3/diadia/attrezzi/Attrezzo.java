@@ -52,6 +52,15 @@ public class Attrezzo implements Comparable<Attrezzo> {
 	}
 	
 	@Override
+	public int compareTo(Attrezzo that) {
+		int nomeComparator = this.getNome().compareTo(that.getNome());
+		if (nomeComparator != 0) {
+			return nomeComparator;
+		}
+		return this.peso - that.getPeso();
+	}
+	
+	@Override
 	public boolean equals(Object o) {
 		Attrezzo that = (Attrezzo)o;
 		return this.getNome().equals(that.getNome());
@@ -62,12 +71,8 @@ public class Attrezzo implements Comparable<Attrezzo> {
 		return this.getNome().hashCode();
 	}
 
-	@Override
-	public int compareTo(Attrezzo that) {
-		int cmp = this.getPeso()-that.getPeso();
-		if(cmp==0)
-			cmp= this.getNome().compareTo(that.getNome());
-		return cmp;
+	public void setPeso(int peso) {
+		this.peso = peso;
 	}
 
 }

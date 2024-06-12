@@ -1,63 +1,21 @@
 package it.uniroma3.diadia.ambienti;
 
 public class StanzaBloccata extends Stanza {
-	
-	private String nonSiPassa;
-	private String passPartout;
 
-	public StanzaBloccata(String nome) {
+	private String attrezzoSbloccante;
+	private Direzione direzioneBloccata;
+
+	public StanzaBloccata(String nome, String attrezzoSbloccante, Direzione direzioneBloccata) {
 		super(nome);
-		this.nonSiPassa = null;      //direzione bloccata
-		this.passPartout = null;   //consente di sbloccare la strada
+		this.attrezzoSbloccante = attrezzoSbloccante;
+		this.direzioneBloccata = direzioneBloccata;
 	}
 	
-	
-	
-
-
-	public StanzaBloccata setPass(String passPartout) {
-		this.passPartout=passPartout;
-		return this;
-	}
-	
-	public Object getPassPartout() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public StanzaBloccata setBlocco(String blocco) {
-		this.nonSiPassa=blocco;
-		return this;
-	}
-
 	@Override
-	public Stanza getStanzaAdiacente(String direzione) {
-		if(this.nonSiPassa.equals(direzione)&& !this.hasAttrezzo(passPartout)) {
+	public Stanza getStanzaAdiacente(Direzione direzione) {
+		if(direzione.equals(this.direzioneBloccata) && !super.hasAttrezzo(attrezzoSbloccante))
 			return this;
-		}
-		else return super.getStanzaAdiacente(direzione);	
-	} 
-	
-	@Override
-	public String getDescrizione() {
-		
-		if(this.getAttrezzi().get(passPartout)==null && this.getAdiacenze().containsKey(nonSiPassa))
-			return "Stanza Bloccata, bisogna forzarla";
-		else
-			return this.toString();
-
-
+		return super.getStanzaAdiacente(direzione);
 	}
-
-
-	public String getDirezioneBloccata() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
-
 
 }
