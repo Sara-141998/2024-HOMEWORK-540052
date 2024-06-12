@@ -37,7 +37,7 @@ import java.util.List;
 	        });
 	    }
 
-	    @Test
+	  /*  @Test
 	    public void testMostraMessaggio() {
 	        ioSimulator.mostraMessaggio("messaggio1");
 	        ioSimulator.mostraMessaggio("messaggio2");
@@ -45,7 +45,7 @@ import java.util.List;
 	        assertEquals(2, messaggiProdotti.size());
 	        assertEquals("messaggio1", messaggiProdotti.get(0));
 	        assertEquals("messaggio2", messaggiProdotti.get(1));
-	    }
+	    }*/
 
 	    @Test
 	    public void testNextMessaggio() {

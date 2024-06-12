@@ -10,36 +10,28 @@ import org.junit.Test;
  * 
  */
 public class LabirintoTest {
+	
+	private static final String VINCENTE = "vincente";
+	private static final String INIZIALE = "iniziale";
 	private Labirinto labirinto;
-	private Stanza atrio;
-	private Stanza biblioteca;
 	
 	@Before
 	public void setUp() {
-		this.labirinto=new Labirinto();
-		atrio=this.labirinto.getStanzaCorrente();
-		biblioteca=this.labirinto.getStanzaVincente();
+		this.labirinto = Labirinto.newBuilder()
+				.addStanzaIniziale(INIZIALE)
+				.addStanzaVincente(VINCENTE)
+				.getLabirinto();
+	}
+
+	
+	@Test
+	public void testGetStanzaIniziale() {
+		assertEquals(INIZIALE, this.labirinto.getStanzaIniziale().getNome());
 	}
 
 	@Test
-	public void testStanzaCorrente() {
-		assertEquals(atrio, this.labirinto.getStanzaCorrente());
-	}
-	
-	@Test
-	public void testStanzaCorrente2() {
-		assertNotEquals(biblioteca, this.labirinto.getStanzaCorrente());
-	}
-	
-	
-	@Test
-	public void testStanzaVincente() {
-		assertEquals(biblioteca,this.labirinto.getStanzaVincente());
-	}
-	
-	@Test
-	public void testStanzaVincente2() {
-		assertNotEquals(atrio,this.labirinto.getStanzaVincente());
+	public void testGetStanzaVincente() {
+		assertEquals(VINCENTE, this.labirinto.getStanzaVincente().getNome());
 	}
 
 }

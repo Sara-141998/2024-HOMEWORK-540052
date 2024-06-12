@@ -6,53 +6,55 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.fixture.Fixture;
 
 public class StanzaBloccataTest {
+
+	private static final String STANZA_ADIACENTE_LIBERA = "stanzaAdiacenteLibera";
+	private static final String STANZA_ADIACENTE_BLOCCATA = "stanzaAdiacenteBloccata";
+	private static final Direzione DIREZIONE_BLOCCATA = Direzione.NORD;
+	private static final Direzione DIREZIONE_LIBERA = Direzione.SUD;
+	private static final String CHIAVE_TEST = "chiaveTest";
+	private static final String STANZA_BLOCCATA = "StanzaBloccata";
 	
-	private StanzaBloccata stanza;
-	private Attrezzo passPartout;
-	private Stanza nord;
-	private Stanza sud;
-	private Stanza est;
-	private Stanza ovest;
-	
+	private StanzaBloccata stanzaBloccata;
+
 	@Before
 	public void setUp() {
-		stanza = new StanzaBloccata("stanza");
-		passPartout= new Attrezzo("calcolatrice", 1);
-		nord = new Stanza("nord");
-		sud = new Stanza("sud");
-		est= new Stanza("est");
-		ovest=new Stanza("ovest");
-		stanza.impostaStanzaAdiacente("nord", nord);
-		stanza.impostaStanzaAdiacente("est", est);
-		stanza.impostaStanzaAdiacente("sud", sud);
-		stanza.impostaStanzaAdiacente("ovest", ovest);
-		stanza.setPass("calcolatrice");
-		stanza.setBlocco("ovest");
+		StanzaBloccata stanzaBloccata = new StanzaBloccata(STANZA_BLOCCATA, CHIAVE_TEST, DIREZIONE_BLOCCATA);
+		this.stanzaBloccata = stanzaBloccata;
 	}
 
-	@Test
-	public void testGetDescrizioneConPassPartout() {
-		stanza.addAttrezzo(passPartout);
-		assertNotEquals(" dovrebbe stampare una descrizione normale", "stanza\nUscite:  nord est sud ovest\nAttrezzi nella stanza: calcolatrice (1kg) ", stanza.getDescrizione());
+	private void setStanzeAdiacenti(Stanza stanzaBloccata) {
+		Stanza stanzaAdiacenteLibera = new Stanza(STANZA_ADIACENTE_LIBERA);
+		Stanza stanzaAdiacenteBloccata = new Stanza(STANZA_ADIACENTE_BLOCCATA);
+		stanzaBloccata.impostaStanzaAdiacente(DIREZIONE_BLOCCATA, stanzaAdiacenteBloccata);
+		stanzaBloccata.impostaStanzaAdiacente(DIREZIONE_LIBERA, stanzaAdiacenteLibera);
 	}
+	
 	@Test
-	public void testGetDescrizioneSenzaPassPartout() {
-		assertEquals(" dovrebbe stampare una descrizione speciale", "Stanza Bloccata, bisogna forzarla", stanza.getDescrizione());
+	public void testGetStanzaAdiacenteBloccata() {
+		setStanzeAdiacenti(this.stanzaBloccata);
+		assertEquals(this.stanzaBloccata, this.stanzaBloccata.getStanzaAdiacente(DIREZIONE_BLOCCATA));
 	}
-
+	
 	@Test
-	public void testGetStanzaAdiacenteConPassPartout() {
-		stanza.addAttrezzo(passPartout);
-		assertEquals(" dovrebbe essere quella", ovest ,stanza.getStanzaAdiacente("ovest"));
-		
+	public void testGetStanzaAdiacenteSbloccata() {
+		setStanzeAdiacenti(this.stanzaBloccata);
+		Fixture.creaAttrezzoEAggiungiAStanza(this.stanzaBloccata, CHIAVE_TEST, 1);
+		assertEquals(STANZA_ADIACENTE_BLOCCATA, this.stanzaBloccata.getStanzaAdiacente(DIREZIONE_BLOCCATA).getNome());
 	}
+	
 	@Test
-	public void testGetStanzaAdiacenteSenzaPassPartout() {
-		assertEquals(" dovrebbe essere quella", stanza ,stanza.getStanzaAdiacente("ovest"));
-		
+	public void testGetStanzaAdiacenteLibera() {
+		setStanzeAdiacenti(this.stanzaBloccata);
+		assertEquals(STANZA_ADIACENTE_LIBERA, this.stanzaBloccata.getStanzaAdiacente(DIREZIONE_LIBERA).getNome());
 	}
- 
+	
+	@Test
+	public void testGetAttrezzoInesistente() {
+		Fixture.creaAttrezzoEAggiungiAStanza(this.stanzaBloccata, "attrezzoDiTest", 1);
+		assertNull(this.stanzaBloccata.getAttrezzo("inesistente"));		
+	}
 	
 }

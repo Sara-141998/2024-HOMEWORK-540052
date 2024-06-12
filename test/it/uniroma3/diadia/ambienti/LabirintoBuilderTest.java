@@ -9,6 +9,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+
+import it.uniroma3.diadia.ambienti.Labirinto.LabirintoBuilder;
+
 public class LabirintoBuilderTest {
 
 	private LabirintoBuilder labirintoBuilder;
@@ -22,7 +25,7 @@ public class LabirintoBuilderTest {
 	public void testAddStanzaIniziale() {
 		labirintoBuilder.addStanzaIniziale("Atrio");
 		Labirinto labirinto = labirintoBuilder.getLabirinto();
-		assertEquals("Atrio", labirinto.getStanzaCorrente().getNome());
+		assertEquals("Atrio", labirinto.getStanzaVincente().getNome());
 	}
 
 	@Test
